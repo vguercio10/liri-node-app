@@ -55,10 +55,10 @@ if (!song ) {
       return console.log('Error occurred: ' + err);
     }
 // console.log(JSON.stringify(data.tracks))
-    console.log(data.tracks.items[0].album.artists[0].name);
-    console.log(data.tracks.items[0].name);
-    console.log(data.tracks.items[0].album.name);
-    console.log(data.tracks.items[0].preview_url);
+    console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
+    console.log("Song Title: " + data.tracks.items[0].name);
+    console.log("Album Name: " + data.tracks.items[0].album.name);
+    console.log("Spotify Preview link: " + data.tracks.items[0].preview_url);
 
 
 
