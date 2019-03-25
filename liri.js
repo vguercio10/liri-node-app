@@ -15,6 +15,7 @@ var searchQuery = process.argv.slice(3).join(" ");
 switch (action) {
   case "concert-this":
     concertThis(searchQuery);
+    break;
   case "spotify-this-song":
     spotifyThis(searchQuery);
     break;
