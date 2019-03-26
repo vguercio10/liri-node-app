@@ -6,6 +6,7 @@ var keys = require("./keys.js");
 var moment = require("moment");
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
+var imdb = require('imdb');
 
 var action = process.argv[2];
 
@@ -18,6 +19,12 @@ switch (action) {
     break;
   case "spotify-this-song":
     spotifyThis(searchQuery);
+    break;
+  case "movie-this":
+    movieThis(searchQuery);
+    break;
+  case " do-what-it-says":
+    doWhatItSays(searchQuery);
     break;
 }
 
@@ -64,4 +71,13 @@ if (!song ) {
 
 
   });
+};
+function movieThis(movie) {
+  if (movie.length === 0) {
+    var queryUrl = "http://www.omdbapi.com/?t=" + "Mr. Nobody." + "&y=&plot=short&apikey=trilogy";
+  } else {
+    var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+  }
+
 }
+
