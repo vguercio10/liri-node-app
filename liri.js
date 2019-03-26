@@ -12,7 +12,7 @@ var action = process.argv[2];
 
 var searchQuery = process.argv.slice(3).join(" ");
 
-
+function block() {
 switch (action) {
   case "concert-this":
     concertThis(searchQuery);
@@ -27,6 +27,8 @@ switch (action) {
     doWhatItSays(searchQuery);
     break;
 }
+}
+block();
 
 function concertThis(artist) {
 
@@ -51,10 +53,10 @@ function concertThis(artist) {
 
 function spotifyThis(song) {
   // console.log(song);
-if (!song ) {
-  song = "The Sign by Ace of Base"
-}
-// console.log(song);
+  if (!song) {
+    song = "The Sign by Ace of Base"
+  // console.log(song);
+  
   spotify.search({
     type: 'track',
     query: song
@@ -62,22 +64,46 @@ if (!song ) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-// console.log(JSON.stringify(data.tracks))
+    // console.log(JSON.stringify(data.tracks))
     console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
     console.log("Song Title: " + data.tracks.items[0].name);
     console.log("Album Name: " + data.tracks.items[0].album.name);
     console.log("Spotify Preview link: " + data.tracks.items[0].preview_url);
 
 
-
+  
   });
 };
+
 function movieThis(movie) {
+
   if (movie.length === 0) {
-    var queryUrl = "http://www.omdbapi.com/?t=" + "Mr. Nobody." + "&y=&plot=short&apikey=trilogy";
+  var queryURL = "http://www.omdbapi.com/?t=" + "Mr.Nobody" + "&y=&plot=short&apikey=trilogy";
   } else {
-    var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-  }
-
+  var queryURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
 }
+  
 
+  axios.get(queryURL).then(function (response) {
+      console.log("Movie Title: " + response.data.Title);
+      console.log("Year: " + response.data.Year);
+      console.log("IMBD Rating: " + response.data.Ratings[0].Value);
+      console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+      console.log("Country: " + response.data.Country);
+      console.log("Language: " + response.data.Language);
+      console.log("Plot: " + response.data.Plot);
+      console.log("Actors: " + response.data.Actors);
+    }
+
+  );
+};
+
+function doWhatItSays() {
+fs.readFile("random.txt", "utf8", function(error, data) {
+  console.log(data);
+});
+
+  
+block();
+}
+}
