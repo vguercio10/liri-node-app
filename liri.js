@@ -10,23 +10,27 @@ var imdb = require('imdb');
 
 var action = process.argv[2];
 
-var searchQuery = process.argv.slice(3).join(" ");
+var searchQuery = process.argv[3];
+
+for (var i = 4; i < process.argv.length; i++) {
+  searchQuery += "+" + process.argv[i];
+}
 
 function block() {
-switch (action) {
-  case "concert-this":
-    concertThis(searchQuery);
-    break;
-  case "spotify-this-song":
-    spotifyThis(searchQuery);
-    break;
-  case "movie-this":
-    movieThis(searchQuery);
-    break;
-  case " do-what-it-says":
-    doWhatItSays(searchQuery);
-    break;
-}
+  switch (action) {
+    case "concert-this":
+      concertThis(searchQuery);
+      break;
+    case "spotify-this-song":
+      spotifyThis(searchQuery);
+      break;
+    case "movie-this":
+      movieThis(searchQuery);
+      break;
+    case "do-what-it-says":
+      doWhatItSays(searchQuery);
+      break;
+  }
 }
 block();
 
@@ -51,15 +55,15 @@ function concertThis(artist) {
   });
 };
 
-function spotifyThis(song) {
-  // console.log(song);
-  if (!song) {
-    song = "The Sign by Ace of Base"
-  // console.log(song);
-  
+function spotifyThis() {
+  // console.log(searchQuery);
+  if (!searchQuery) {
+    searchQuery = "The Sign by Ace of Base"
+    // console.log(searchQuery);
+  }
   spotify.search({
     type: 'track',
-    query: song
+    query: searchQuery
   }, function (err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
@@ -71,18 +75,18 @@ function spotifyThis(song) {
     console.log("Spotify Preview link: " + data.tracks.items[0].preview_url);
 
 
-  
+
   });
 };
 
 function movieThis(movie) {
 
   if (movie.length === 0) {
-  var queryURL = "http://www.omdbapi.com/?t=" + "Mr.Nobody" + "&y=&plot=short&apikey=trilogy";
+    var queryURL = "http://www.omdbapi.com/?t=" + "Mr.Nobody" + "&y=&plot=short&apikey=trilogy";
   } else {
-  var queryURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-}
-  
+    var queryURL = "http://www.omdbapi.com/?t=" + searchQuery + "&y=&plot=short&apikey=trilogy";
+  }
+
 
   axios.get(queryURL).then(function (response) {
       console.log("Movie Title: " + response.data.Title);
@@ -99,11 +103,18 @@ function movieThis(movie) {
 };
 
 function doWhatItSays() {
-fs.readFile("random.txt", "utf8", function(error, data) {
-  console.log(data);
-});
+  fs.readFile("random.txt", "utf8", function (error, data) {
+    var dataArr = data.split(",");
+    console.log(dataArr);
+    action = dataArr[0];
+    var dataArr2 = dataArr[1].split(" ");
+    console.log(dataArr2);
+    searchQuery = dataArr2[0];
+    for (var i = 1; i < dataArr2.length; i++) {
+      searchQuery += "+" + dataArr2[i];
+    }
+    block();
+  });
 
-  
-block();
-}
+
 }
