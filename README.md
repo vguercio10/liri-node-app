@@ -1,7 +1,16 @@
-# liri-node-app
+# Liri-Bot App
+
+## LIRI is a Language Interpretation and Recognition Interface. 
+##LIRI is a command line node app that takes in parameters and gives you back data.
+
+Liri takes the following commands:
+* Concert-this
+* Spotify-this-song
+* Movie-this
+* Do-what-it-says
 
 
-
+The gifs below are examples of the command line arguments and returned data.
 
 
 
