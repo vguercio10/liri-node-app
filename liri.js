@@ -1,4 +1,4 @@
-// NPM packages
+//  Acquiring NPM packages
 var axios = require("axios");
 var fs = require("fs");
 require("dotenv").config();
@@ -8,14 +8,15 @@ var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var imdb = require('imdb');
 
+// Taking in command line 
 var action = process.argv[2];
 
 var searchQuery = process.argv[3];
-
+// Looping through input from command line and concatenating 
 for (var i = 4; i < process.argv.length; i++) {
   searchQuery += "+" + process.argv[i];
 }
-
+// Function with switch case 
 function block() {
   switch (action) {
     case "concert-this":
@@ -32,17 +33,18 @@ function block() {
       break;
   }
 }
+// Calling function block
 block();
-
+// Function for concert this command 
 function concertThis(artist) {
 
-
+  // Bands in town API
   var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
   // Helps to debug actual URL
   // console.log(queryURL);
 
-
+  // Using axios get method and catch method to print data 
   axios.get(queryURL).then(
     function (response) {
       console.log("Venue Name: " + response.data[0].venue.name);
@@ -54,7 +56,7 @@ function concertThis(artist) {
     console.log(error);
   });
 };
-
+// Spotify function for spotify this command 
 function spotifyThis() {
   // console.log(searchQuery);
   if (!searchQuery) {
@@ -78,7 +80,7 @@ function spotifyThis() {
 
   });
 };
-
+// Movie this functiong using omdb api
 function movieThis(movie) {
 
   if (movie.length === 0) {
@@ -87,7 +89,7 @@ function movieThis(movie) {
     var queryURL = "http://www.omdbapi.com/?t=" + searchQuery + "&y=&plot=short&apikey=trilogy";
   }
 
-
+  // axios method to recieve and print data
   axios.get(queryURL).then(function (response) {
       console.log("Movie Title: " + response.data.Title);
       console.log("Year: " + response.data.Year);
@@ -101,7 +103,9 @@ function movieThis(movie) {
 
   );
 };
-
+// do what it says command with fs package to use readFile method
+// data has been split into arrays using .split
+// block function called to use switch case 
 function doWhatItSays() {
   fs.readFile("random.txt", "utf8", function (error, data) {
     var dataArr = data.split(",");
