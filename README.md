@@ -5,8 +5,15 @@
 
 
 
-
+#### Concert This Command
 ![concert-this](https://user-images.githubusercontent.com/47366649/55030762-68724300-4fe3-11e9-8985-9157656cb128.gif)
+
+
+
+
+
+#### Spotify This Song Command
+![spotifythis](https://user-images.githubusercontent.com/47366649/55042527-417a3800-5008-11e9-87d8-eab0a9062a4d.gif)
 
 
 
