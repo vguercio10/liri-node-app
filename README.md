@@ -23,3 +23,10 @@
 
 
 
+
+#### Do What It Says Command
+![dowhatitsays](https://user-images.githubusercontent.com/47366649/55042940-47711880-500a-11e9-9d3f-ca73b10dd49c.gif)
+
+
+
+
